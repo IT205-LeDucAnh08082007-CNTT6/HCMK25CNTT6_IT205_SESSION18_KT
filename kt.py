@@ -49,18 +49,22 @@ def add_item(inventory_list):
     print("Thêm hàng hóa vào kho thành công!")
 
 def update_quantity(inventory_list):
-    update_id = get_validate_input("Nhập mã hàng hóa cần sửa đổi: ")
-    found = False
-    for item in inventory_list:
-        if update_id == item.get("id"):
-            found = True
-            print(f"Tìm thấy hàng hóa: {item.get("name")} (Số lượng hiện tại: {item.get("quantity")})")
-            new_stock = get_validate_input("Nhập số lượng mới: ", "int")
-            item["quantity"] = new_stock
-            print(f"Đã cập nhật số lượng tồn kho của {item.get("name")}")
-            break
-    if not found:
-        print(f"Không tìm thấy hàng hóa có mã {update_id}")
+    if not inventory_list:
+        print("Không có hàng hóa trong kho để cập nhật!")
+        return
+    else:
+        update_id = get_validate_input("Nhập mã hàng hóa cần sửa đổi: ")
+        found = False
+        for item in inventory_list:
+            if update_id == item.get("id"):
+                found = True
+                print(f"Tìm thấy hàng hóa: {item.get("name")} (Số lượng hiện tại: {item.get("quantity")})")
+                new_stock = get_validate_input("Nhập số lượng mới: ", "int")
+                item["quantity"] = new_stock
+                print(f"Đã cập nhật số lượng tồn kho của {item.get("name")}")
+                break
+        if not found:
+            print(f"Không tìm thấy hàng hóa có mã {update_id}")
 
 def main():
     # inventory_list = []
