@@ -17,15 +17,26 @@ def get_validate_input(prompt : str, input_type : str = "str"):
         return user_input
 
 def show_inventory(inventory_list):
-    print("-- DANH SÁCH HÀNG TỒN KHO --")
-    print(f"{'ID':<4} | {'Tên hàng hóa':<25} | {'Số lượng tồn'}")
-    print("-" * 47)
-    for item in inventory_list:
-        print(f"{item.get("id"):<4} | {item.get("name"):<25} | {item.get("quantity")}")
-    print("-" * 47)
+    if not inventory_list:
+        print("Không có hàng hóa nào trong kho!")
+        return
+    else:
+        print("-- DANH SÁCH HÀNG TỒN KHO --")
+        print(f"{'ID':<4} | {'Tên hàng hóa':<25} | {'Số lượng tồn'}")
+        print("-" * 47)
+        for item in inventory_list:
+            print(f"{item.get("id"):<4} | {item.get("name"):<25} | {item.get("quantity")}")
+        print("-" * 47)
     
 def add_item(inventory_list):
-    id = get_validate_input("Nhập mã hàng hóa (ID): ")
+    while True:
+        id = get_validate_input("Nhập mã hàng hóa (ID): ")
+        for item in inventory_list:
+            if id == item.get("id"):
+                print("ID hàng hóa đã tồn tại. Vui lòng nhập lại ID mới!")
+                break
+        else:
+            break
     name = get_validate_input("Nhập tên hàng hóa: ")
     stock = get_validate_input("Nhập số lượng tồn kho: ", "int")
 
@@ -50,6 +61,7 @@ def update_quantity(inventory_list):
         print(f"Không tìm thấy hàng hóa có mã {update_id}")
 
 def main():
+    # inventory_list = []
     inventory_list = [
         {'id': 'G01', 'name': 'Gạo tẻ', 'quantity': 50},
         {'id': 'G02', 'name': 'Mì tôm', 'quantity': 120}
