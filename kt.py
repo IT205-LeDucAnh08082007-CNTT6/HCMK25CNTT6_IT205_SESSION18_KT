@@ -53,9 +53,11 @@ def update_quantity(inventory_list):
     found = False
     for item in inventory_list:
         if update_id == item.get("id"):
+            found = True
             print(f"Tìm thấy hàng hóa: {item.get("name")} (Số lượng hiện tại: {item.get("quantity")})")
-            new_stock = get_validate_input("Nhập số lượng mới: ")
+            new_stock = get_validate_input("Nhập số lượng mới: ", "int")
             item["quantity"] = new_stock
+            print(f"Đã cập nhật số lượng tồn kho của {item.get("name")}")
             break
     if not found:
         print(f"Không tìm thấy hàng hóa có mã {update_id}")
